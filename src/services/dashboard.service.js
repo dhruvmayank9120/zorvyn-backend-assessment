@@ -1,0 +1,21 @@
+import Record from "../models/record.model.js";
+
+export const getSummary = async () => {
+  const records = await Record.find();
+
+  let income = 0;
+  let expense = 0;
+
+  records.forEach((r) => {
+    if (r.type === "income") {
+      income += r.amount;
+    } else {
+      expense += r.amount;
+    }
+  });
+  return {
+    totalIncome: income,
+    totalExpense: expense,
+    netBalance: income - expense,
+  };
+};
